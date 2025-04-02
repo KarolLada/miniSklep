@@ -20,10 +20,26 @@
             <tr>
                 <td>{{ product.name }}</td>
                 <td>{{ product.price }}</td>
+                <td>
+                    <form method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="edycja" value="{{ product.name }}|{{ product.price }}">
+                        <button type="submit" class="btn btn-warning">Edytuj</button>
+                    </form>
+                    <form method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="usun" value="{{ product.name }}|{{ product.price }}">
+                        <button type="submit" class="btn btn-danger">Usuń</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger" name="usunAll">Usuń wszystkie produkty</button>
+    </form>
     <br><button type="button" class="btn btn-info" onclick="location.href='http://127.0.0.1:8000/sklep'">Przejdź do formularza</button>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
