@@ -5,5 +5,5 @@ class Products(models.Model):
     price = models.PositiveIntegerField()
 
 class Users(models.Model):
-    login = models.CharField(max_length=64)
-    passw = models.CharField(max_length=64)
+    login = models.CharField(max_length=256)
+    passw = models.CharField(max_length=256)

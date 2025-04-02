@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Products, Users
-from django.contrib.auth.hashers import make_password
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import make_password, check_password
 
 def sklep(request):
     if request.method == "POST":
@@ -28,10 +27,9 @@ def sklepLogin(request):
             if check_password(passw, user.passw):
                 return redirect('sklep') 
             else:
-                return render(request, "sklepLogin.html", {"error": "Nie ma takiego użytkownika"})
+                return render(request, "sklepLogin.html", {"error": "Błędne dane logowania"})
         except Users.DoesNotExist:
-            return render(request, "sklepLogin.html", {"error": "Nie ma takiego użytkownika"})
-
+            return render(request, "sklepLogin.html", {"error": "Błędne dane logowania"})
 
     return render(request, "sklepLogin.html")
 

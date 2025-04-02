@@ -8,7 +8,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body class="container mt-5">
-    <h1>Formularz Rejestracji</h1>
+    <h1>Rejestrowanie użytkownika do systemu</h1>
         <form method="POST">
             {% csrf_token %}
         <div class="mb-3">
@@ -19,7 +19,7 @@
             <label class="form-label">Hasło</label>
             <input type="text" required class="form-control" name="passw">
         </div>
-            <button type="submit" class="btn btn-primary">Zapisz</button>
+            <button type="submit" class="btn btn-primary">Zarejestruj</button>
     </form>
     <br><button type="button" class="btn btn-info" onclick="location.href='http://127.0.0.1:8000/'">Przejdź do logowania</button>
 </body>
