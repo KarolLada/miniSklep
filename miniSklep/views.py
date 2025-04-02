@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Products, Users
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
 
 def sklep(request):
     if request.method == "POST":
@@ -16,30 +18,38 @@ def sklep(request):
     return render(request, "sklep.html")
 
 def sklepLogin(request):
-    if request.method == "GET":
+    if request.method == "POST":
         login = request.POST.get("login")
         passw = request.POST.get("passw")
-  
-        user = Users(
-            login=login,
-            passw=passw,
-        )
-        
+
+        try:
+            user = Users.objects.get(login=login)
+
+            if check_password(passw, user.passw):
+                return redirect('sklep') 
+            else:
+                return render(request, "sklepLogin.html", {"error": "Nie ma takiego użytkownika"})
+        except Users.DoesNotExist:
+            return render(request, "sklepLogin.html", {"error": "Nie ma takiego użytkownika"})
+
+
     return render(request, "sklepLogin.html")
 
 def register(request):
     if request.method == "POST":
         login = request.POST.get("login")
         passw = request.POST.get("passw")
-  
+        
+        hashPass = make_password(passw)
+        
         user = Users(
             login=login,
-            passw=passw,
+            passw=hashPass,
         )
-
         user.save()
 
     return render(request, "register.html")
+
 
 def products(request):
     products = Products.objects.all()
