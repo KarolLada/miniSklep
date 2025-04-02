@@ -27,9 +27,9 @@ def sklepLogin(request):
             if check_password(passw, user.passw):
                 return redirect("sklep") 
             else:
-                return render(request, "sklepLogin.html", {"error": "Błędne dane logowania"})
+                HttpResponse("Błędne dane logowania")
         except Users.DoesNotExist:
-            return render(request, "sklepLogin.html", {"error": "Błędne dane logowania"})
+            HttpResponse("Błędne dane logowania")
 
     return render(request, "sklepLogin.html")
 
@@ -60,7 +60,7 @@ def products(request):
                 usunProduct.delete()
                 return redirect("products")
             except Products.DoesNotExist:
-                return render(request, "products.html", {"error": "Nie znaleziono produktu"})
+                return HttpResponse("Nie znaleziono produktu")
             
         if "edycja" in request.POST:
             product_id = request.POST["edycja"].split("|")
