@@ -27,9 +27,9 @@ def sklepLogin(request):
             if check_password(passw, user.passw):
                 return redirect("sklep") 
             else:
-                HttpResponse("Błędne dane logowania")
+                HttpResponse("Błędne dane")
         except Users.DoesNotExist:
-            HttpResponse("Błędne dane logowania")
+            return render(request, "sklepLogin.html", {"error": "Błędne dane logowania"})
 
     return render(request, "sklepLogin.html")
 
@@ -92,3 +92,7 @@ def edit(request, product_name, product_price):
             return redirect('products')  
 
     return render(request, 'edit.html', {'product': product})
+
+def view(request):
+    products = Products.objects.all()
+    return render(request, "view.html", {"Products": products})
